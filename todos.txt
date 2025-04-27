@@ -1,0 +1,121 @@
+Ótima iniciativa! Criar uma ferramenta web para análise e limpeza de dados é um projeto muito interessante e com grande potencial. Baseado no que você já tem (visão geral, correlação, scatter, limpeza básica, treino de modelo simples), aqui estão várias sugestões de melhorias e novas funcionalidades, organizadas por área:
+
+1. Análise Exploratória de Dados (EDA) Mais Rica:
+
+Estatísticas Descritivas Detalhadas: Para cada coluna (ou colunas selecionadas), mostrar mais estatísticas:
+
+Numéricas: Contagem, média, desvio padrão, mínimo, 25º percentil (Q1), mediana (50º), 75º percentil (Q3), máximo, intervalo interquartil (IQR), contagem de valores únicos, skewness (assimetria), kurtosis (curtose).
+
+Categóricas: Contagem, contagem de valores únicos, valor mais frequente (moda), frequência da moda.
+
+Visualizações Univariadas:
+
+Histogramas/Density Plots: Para visualizar a distribuição de colunas numéricas individuais.
+
+Box Plots: Para visualizar a distribuição e identificar outliers em colunas numéricas.
+
+Bar Charts (Gráficos de Barras): Para mostrar a frequência de cada categoria em colunas categóricas.
+
+Visualizações Bivariadas Adicionais:
+
+Pair Plot (Seaborn): Mostrar scatter plots entre todas as pares de colunas numéricas selecionadas, com histogramas/density plots na diagonal. Útil para uma visão rápida de relações múltiplas.
+
+Box Plots Agrupados: Visualizar a distribuição de uma variável numérica agrupada por uma variável categórica (ex: sepal_length por species).
+
+Heatmap de Valores Faltantes: Uma visualização que mostra onde os NaNs estão no dataset.
+
+Interatividade nos Gráficos: Usar bibliotecas como Plotly ou Bokeh em vez de Matplotlib/Seaborn (que geram imagens estáticas). Isso permitiria:
+
+Tooltips (mostrar valores ao passar o mouse).
+
+Zoom e Pan.
+
+Seleção interativa de pontos (potencialmente ligada a outras partes da UI).
+
+2. Limpeza e Pré-processamento Mais Abrangentes:
+
+Tratamento de Outliers:
+
+Identificação (usando IQR, Z-score).
+
+Opções de tratamento: Remover linhas, aplicar capping (substituir por um valor limite), transformar (ex: log).
+
+Conversão de Tipos de Dados: Permitir que o usuário tente converter colunas (ex: 'object' para 'numeric', 'numeric' para 'category').
+
+Engenharia de Features Simples:
+
+Binning/Discretização: Agrupar valores numéricos em categorias (ex: idade em faixas etárias).
+
+Criação de Features de Interação: Permitir multiplicar ou dividir colunas numéricas selecionadas.
+
+Extração de Data/Hora: Se houver colunas de data/hora, permitir extrair ano, mês, dia, dia da semana, hora, etc.
+
+Encoding de Categóricas: Dar opções explícitas ao usuário (One-Hot Encoding vs. Label Encoding) como um passo de pré-processamento separado, talvez antes do ML.
+
+Scaling/Normalização: Oferecer opções como StandardScaler, MinMaxScaler como um passo opcional antes do ML.
+
+Manuseio de Texto Básico: Se o dataset tiver texto, opções como converter para minúsculas, remover pontuação.
+
+3. Funcionalidades de Machine Learning Expandidas:
+
+Seleção Explícita de Features (X): Em vez de usar "todas as outras colunas", permitir que o usuário marque explicitamente quais colunas usar como features para o modelo.
+
+Mais Modelos: Adicionar outros algoritmos populares (ex: Gradient Boosting (Classifier/Regressor), SVM Regressor, talvez K-Means para clustering como uma análise separada).
+
+Avaliação Mais Robusta:
+
+Cross-Validation (Validação Cruzada): Implementar K-Fold CV para obter métricas mais estáveis em vez de um único split treino/teste. Mostrar a média e o desvio padrão das métricas nas folds.
+
+Métricas Adicionais: Mean Absolute Error (MAE) para regressão, Classification Report completo (com precisão, recall, f1 para cada classe), ROC AUC para multi-classe (usando estratégias One-vs-Rest/One-vs-One).
+
+Interpretabilidade do Modelo:
+
+Feature Importance: Para modelos baseados em árvores (Decision Tree, Random Forest, Gradient Boosting), mostrar um gráfico de barras com a importância de cada feature.
+
+Coeficientes: Para modelos lineares (Linear/Logistic Regression), mostrar os coeficientes associados a cada feature (após scaling).
+
+Ajuste Básico de Hiperparâmetros: Permitir que o usuário ajuste 1 ou 2 hiperparâmetros chave para alguns modelos (ex: n_estimators para RandomForest, C para Logistic Regression/SVM, n_neighbors para KNN).
+
+Comparação de Modelos: Permitir treinar múltiplos modelos selecionados pelo usuário nos mesmos dados/features e apresentar os resultados (métricas principais) em uma tabela comparativa.
+
+Previsão em Novos Dados: Após treinar um modelo, permitir que o usuário faça upload de um novo arquivo (com as mesmas colunas, exceto a target) para obter previsões.
+
+(Avançado/Opcional) Salvar/Carregar Modelos: Permitir salvar o pipeline treinado (pré-processador + modelo) como um arquivo (.joblib ou .pkl) e carregá-lo posteriormente. Cuidado: Isso traz riscos de segurança se não for bem implementado.
+
+4. Melhorias na Experiência do Usuário (UX) e Interface (UI):
+
+Fluxo de Trabalho Mais Claro: Talvez guiar o usuário visualmente através das etapas (Upload -> Visão Geral -> Limpeza -> EDA -> Modelagem -> Resultados).
+
+Feedback Visual: Usar spinners/barras de progresso mais visíveis para operações demoradas (upload, limpeza, treino de modelo).
+
+Mensagens de Erro Específicas: Tornar as mensagens de erro (tanto do frontend quanto do backend) mais informativas para o usuário.
+
+Estado Persistente: Tentar manter as seleções do usuário (colunas, opções) ao navegar entre as abas ou ao recarregar (talvez usando localStorage ou melhorando o estado da sessão no backend).
+
+Responsividade: Garantir que a interface se adapte bem a diferentes tamanhos de tela.
+
+Opção de Download: Permitir o download dos gráficos gerados (como PNG/SVG) e das tabelas de resultados (como CSV).
+
+5. Aspectos Técnicos:
+
+Tarefas em Background (Celery): Para operações muito longas (treinar modelos complexos em dados grandes, limpeza pesada), usar uma fila de tarefas como Celery com Redis/RabbitMQ para que o navegador não trave esperando a resposta HTTP. O frontend pode então consultar o status da tarefa periodicamente.
+
+Tratamento de Erros e Logging: Melhorar o logging no backend para facilitar a depuração. Implementar tratamento de erros mais robusto.
+
+Testes: Adicionar testes unitários e de integração para garantir que as funcionalidades continuem funcionando conforme você adiciona mais coisas.
+
+Segurança: Validar todos os inputs do usuário, garantir que o acesso aos arquivos temporários seja restrito à sessão correta, sanitizar nomes de arquivos, ter atenção extra com a serialização/desserialização de modelos (pickle/joblib).
+
+Como Começar:
+
+Não tente implementar tudo de uma vez! Escolha algumas funcionalidades que pareçam mais úteis ou interessantes para você e comece por elas. Por exemplo:
+
+Adicionar Histogramas e Box Plots na aba de Overview.
+
+Implementar a seleção explícita de features na aba de ML.
+
+Adicionar mais métricas de avaliação (ex: MAE, Classification Report).
+
+Trocar um dos gráficos estáticos por um interativo usando Plotly.
+
+Continue iterando, testando e refinando. O mais importante é construir algo que seja útil e que você goste de desenvolver!

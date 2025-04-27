@@ -1,0 +1,150 @@
+{# analysis/templates/analysis/home.html #}
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}DataSage - Intelligent Data Analysis{% endblock %}
+
+{% block content %}
+{# Header com Nova Animação #}
+<header class="text-center py-5 mb-4" style="background: var(--bg-gradient); border-bottom: 1px solid var(--primary-border); overflow: hidden; position: relative;">
+    {# ... (código do header como antes) ... #}
+    <div class="container position-relative" style="z-index: 1;"> <div class="logo-animation mb-4"> <div class="logo-text-wrapper"> <div class="binary-overlay"></div> <div class="logo-numbers"> <span class="number-particle">1</span><span class="number-particle">0</span> <span class="number-particle">1</span><span class="number-particle">0</span> <span class="number-particle">1</span><span class="number-particle">1</span> <span class="number-particle">0</span><span class="number-particle">0</span> <span class="number-particle">1</span><span class="number-particle">1</span> <span class="number-particle">0</span><span class="number-particle">1</span> </div> <h1 class="logo-text display-3 fw-bold"> <i class="fas fa-hat-wizard me-2"></i>DataSage </h1> </div> </div> <p class="lead mb-4" style="color: var(--text-light);"> Transform your data into strategic decisions. Upload, clean, analyze, and apply Machine Learning with ease. </p> </div>
+</header>
+
+{# Container principal para o conteúdo da home #}
+<div class="container mb-5">
+    <section class="upload-section card">
+        <div class="card-body text-center">
+            <h2 class="card-title mb-3"><i class="fas fa-upload me-2"></i>Start Your Analysis</h2>
+            <p class="card-text text-muted mb-4">Upload your data file (CSV, XLSX) or use our sample data to explore features.</p>
+
+            {# --- ÁREA DE UPLOAD --- #}
+            <div class="data-visualization my-4" id="drop-zone"> <div class="grid-background"></div> <div class="data-flow"> <div class="data-node" style="top: 20%; left: 15%; animation-delay: 0s;"></div> <div class="data-node" style="top: 50%; left: 40%; animation-delay: 1.5s;"></div> <div class="data-node" style="top: 75%; left: 65%; animation-delay: 3s;"></div> <div class="data-node" style="top: 35%; left: 85%; animation-delay: 4.5s;"></div> <div class="data-node" style="top: 60%; left: 5%; animation-delay: 6s;"></div> </div> <div style="position: relative; z-index: 2; text-align: center;"> <i class="fas fa-cloud-upload-alt mb-2" style="font-size: 2.5rem; opacity: 0.7;"></i> <p id="drop-zone-text" class="mb-0">Drag & drop files here or click to select</p> </div> </div>
+
+            {# --- FORMULÁRIO --- #}
+            <form method="post" enctype="multipart/form-data" class="file-upload mt-4">
+                {% csrf_token %}
+                <div class="d-flex justify-content-center align-items-center flex-wrap gap-3"> {# Flex para alinhar botões #}
+                    {# Botão para selecionar arquivo (Label) #}
+                    <label for="data_file_input" class="btn btn-primary file-upload-btn">
+                        <i class="fas fa-file-upload me-2"></i> Select File
+                    </label>
+                    {# Input escondido #}
+                    <input type="file" name="data_file" id="data_file_input" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" class="d-none" onchange="displayFileName(this)">
+
+                    <span class="text-muted mx-2">or</span>
+
+                    {# Botão para dados de exemplo #}
+                    <button type="submit" name="sample_data" class="btn btn-secondary sample-data-btn">
+                        <i class="fas fa-database me-2"></i> Use Sample Data (Iris)
+                    </button>
+                </div>
+
+                {# --- NOVO BOTÃO DE UPLOAD/ANALYZE --- #}
+                <div class="mt-4"> {# Div para espaçamento #}
+                    <button type="submit" class="btn btn-success btn-lg" id="upload-analyze-button" style="display: none;"> {# Escondido inicialmente #}
+                        <span class="spinner-border spinner-border-sm me-1" style="display: none;"></span> {# Spinner opcional #}
+                        <i class="fas fa-arrow-right me-2"></i> Analyze Uploaded File
+                    </button>
+                </div>
+                {# --- FIM NOVO BOTÃO --- #}
+            </form>
+            <p id="file-info" class="mt-3 text-muted small"></p> {# Mostra nome do arquivo #}
+
+            {% if error %}
+                <div class="alert alert-danger mt-3">{{ error }}</div>
+            {% endif %}
+        </div>
+    </section>
+</div>
+
+{# --- Footer Portfólio (Sem alterações) --- #}
+<section id="portfolio-footer" class="py-4 mt-5">
+    {# ... (código do footer como antes) ... #}
+    <div class="container"> <h2 class="text-center mb-4 fw-bold" style="color: var(--secondary);">About the Developer</h2> <div class="row align-items-center justify-content-center gy-4"> <div class="col-lg-3 col-md-4 text-center"> <img src="{% static 'images/profile_pic.jpg' %}" alt="Leonardo Moraes - Profile Picture" class="profile-pic img-fluid mb-3 mb-md-0"> </div> <div class="col-lg-8 col-md-8"> <div class="bio-info mb-3"> <h3 class="mb-1" style="color: var(--light);">Leonardo Moraes</h3> <p class="lead mb-2" style="color: var(--text-lighter); font-weight: 500; font-size: 1.1rem;">Senior Data Analyst | Postgraduate in AI & Machine Learning</p> <p class="text-muted small">Passionate about transforming raw data into actionable insights and intelligent solutions.</p> </div> <div class="row gy-3"> <div class="col-lg-7"> <h5 style="color: var(--secondary); font-size: 1rem;"><i class="fas fa-star me-1"></i>Key Skills:</h5> <ul class="list-inline skills-list small"> <li class="list-inline-item"><span class="badge skill-badge"><i class="fab fa-python me-1"></i> Python (Pandas, Scikit-learn)</span></li> <li class="list-inline-item"><span class="badge skill-badge"><i class="fas fa-database me-1"></i> SQL</span></li> <li class="list-inline-item"><span class="badge skill-badge"><i class="fas fa-chart-pie me-1"></i> Data Visualization</span></li> <li class="list-inline-item"><span class="badge skill-badge"><i class="fas fa-brain me-1"></i> Machine Learning</span></li> <li class="list-inline-item"><span class="badge skill-badge"><i class="fas fa-cogs me-1"></i> Data Modeling</span></li> <li class="list-inline-item"><span class="badge skill-badge"><i class="fas fa-bolt me-1"></i> Problem Solving</span></li> </ul> </div> <div class="col-lg-5"> <h5 style="color: var(--secondary); font-size: 1rem;"><i class="fas fa-link me-1"></i>Contact & Links:</h5> <div class="bio-contact small"> <p class="mb-1"> <a href="https://www.linkedin.com/in/moraesleo/" target="_blank" class="social-link"> <i class="fab fa-linkedin me-1"></i> LinkedIn </a> <span class="mx-1 text-muted">|</span> <a href="https://github.com/lmoraes9" target="_blank" class="social-link"> <i class="fab fa-github me-1"></i> GitHub (lmoraes9) </a> </p> <p class="mb-1"><i class="fas fa-envelope me-2"></i><a href="mailto:leonardo.lamoraes@gmail.com" class="text-muted">leonardo.lamoraes@gmail.com</a></p> <p class="mb-0"><i class="fas fa-map-marker-alt me-2"></i>Santo André, São Paulo, Brazil</p> </div> </div> </div> </div> </div> <p class="text-center text-muted mt-4 mb-0 small">© {% now "Y" %} DataSage by Leonardo Moraes. All rights reserved.</p> </div>
+</section>
+
+{% endblock content %}
+
+{% block extra_scripts %}
+<script>
+    // JS para mostrar nome do arquivo selecionado E o botão de upload
+    function displayFileName(input) {
+        const fileInfo = document.getElementById('file-info');
+        const uploadButton = document.getElementById('upload-analyze-button'); // Pega o novo botão
+        const dropZoneText = document.getElementById('drop-zone-text'); // Pega texto da dropzone
+
+        if (input.files && input.files.length > 0) {
+            const file = input.files[0];
+            fileInfo.textContent = `Selected file: ${file.name} (${(file.size / 1024).toFixed(2)} KB)`;
+            if (uploadButton) uploadButton.style.display = 'inline-block'; // MOSTRA o botão de upload
+            if (dropZoneText) dropZoneText.textContent = file.name; // Mostra nome na dropzone
+        } else {
+            fileInfo.textContent = '';
+            if (uploadButton) uploadButton.style.display = 'none'; // ESCONDE o botão de upload
+            if (dropZoneText) dropZoneText.textContent = 'Drag & drop files here or click to select'; // Restaura texto
+        }
+    }
+
+    // --- Drag & Drop Logic (HIGHLIGHTING & FILE HANDLING) ---
+    const dropZone = document.getElementById('drop-zone');
+    const fileInput = document.getElementById('data_file_input');
+    // const fileInfo = document.getElementById('file-info'); // Já definido acima
+    // const dropZoneText = document.getElementById('drop-zone-text'); // Já definido acima
+
+    if (dropZone && fileInput && fileInfo && dropZoneText) {
+        // Prevent default drag behaviors
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, preventDefaults, false);
+            document.body.addEventListener(eventName, preventDefaults, false);
+        });
+        // Highlight drop zone when item is dragged over it
+        ['dragenter', 'dragover'].forEach(eventName => { dropZone.addEventListener(eventName, highlight, false); });
+        // Unhighlight drop zone when item leaves or is dropped
+        ['dragleave', 'drop'].forEach(eventName => { dropZone.addEventListener(eventName, unhighlight, false); });
+        // Handle dropped files
+        dropZone.addEventListener('drop', handleDrop, false);
+        // Allow clicking the drop zone to trigger file input
+        dropZone.addEventListener('click', () => { fileInput.click(); });
+    }
+
+    function preventDefaults (e) { e.preventDefault(); e.stopPropagation(); }
+    function highlight(e) { if (dropZone) dropZone.classList.add('drag-over'); }
+    function unhighlight(e) { if (dropZone) dropZone.classList.remove('drag-over'); }
+
+    function handleDrop(e) {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        // Atualiza o input E a UI
+        if (files.length > 0) {
+             fileInput.files = files; // NECESSÁRIO para o form enviar o arquivo correto
+             displayFileName(fileInput); // Atualiza o texto e mostra o botão
+         }
+    }
+    // A função handleFiles não é mais necessária separadamente,
+    // pois handleDrop agora atualiza o input e chama displayFileName
+
+    // Opcional: Adicionar spinner ao botão de upload ao submeter
+    const uploadForm = document.querySelector('.file-upload'); // Encontra o formulário
+    const uploadAnalyzeBtn = document.getElementById('upload-analyze-button');
+    if(uploadForm && uploadAnalyzeBtn){
+        uploadForm.addEventListener('submit', function(e) {
+            // Verifica se o botão que submeteu NÃO é o de sample data E se há arquivo
+            const submitter = e.submitter; // Botão que causou o submit
+            if (submitter && submitter.name !== 'sample_data' && fileInput.files.length > 0) {
+                const spinner = uploadAnalyzeBtn.querySelector('.spinner-border');
+                if(spinner) spinner.style.display = 'inline-block';
+                uploadAnalyzeBtn.disabled = true;
+                uploadAnalyzeBtn.querySelector('i').classList.add('d-none'); // Esconde ícone normal
+            }
+            // Se for o botão sample_data, pode adicionar spinner a ele também se quiser
+            else if (submitter && submitter.name === 'sample_data') {
+                 const sampleSpinner = submitter.querySelector('.spinner-border'); // Adicione spinner a ele no HTML se quiser
+                 // if (sampleSpinner) sampleSpinner.style.display = 'inline-block';
+                 // submitter.disabled = true;
+            }
+        });
+    }
+
+</script>
+{% endblock extra_scripts %}

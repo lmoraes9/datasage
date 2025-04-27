@@ -1,0 +1,246 @@
+/* analysis/static/css/datasage_theme.css */
+
+/* --- Variáveis de Cor (Inspiradas no Exemplo) --- */
+:root {
+    --primary: #0a192f;          /* Fundo principal escuro */
+    --primary-light: #112240;     /* Fundo de cards/componentes */
+    --primary-lighter: #172a45;   /* Um tom ligeiramente mais claro */
+    --primary-border: #233554;    /* Bordas sutis */
+    --secondary: #64ffda;         /* Verde-azulado vibrante (Destaque principal) */
+    --secondary-dark: #00e6c0;    /* Variação do destaque */
+    --accent: #7e57c2;           /* Roxo (Destaque secundário/Info?) */
+    --light: #ffffff;            /* Branco */
+    --text: #ccd6f6;           /* Texto principal (claro) */
+    --text-light: #8892b0;      /* Texto secundário/muted */
+    --text-lighter: #a8b2d1;    /* Outro tom claro */
+    --success: #00e676;         /* Verde para sucesso */
+    --warning: #ffab40;         /* Laranja para aviso */
+    --danger: #ff5252;          /* Vermelho para perigo */
+    --glow-effect: 0 0 15px rgba(100, 255, 218, 0.2); /* Efeito glow sutil */
+    --secondary-collision: var(--danger); /* Cor para animação de colisão */
+}
+
+/* --- Estilos Base --- */
+body {
+    background-color: var(--primary);
+    color: var(--text);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    line-height: 1.6;
+    font-size: 1rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--light);
+    font-weight: 600;
+}
+
+a {
+    color: var(--secondary);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--secondary-dark);
+}
+
+/* --- Navbar (Sobrescrevendo Bootstrap) --- */
+.navbar {
+    background-color: var(--primary-light);
+    border-bottom: 1px solid var(--primary-border);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+.navbar-brand {
+    color: var(--secondary) !important;
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+.navbar .nav-link { color: var(--text-light); transition: color 0.3s ease; }
+.navbar .nav-link:hover, .navbar .nav-link:focus { color: var(--secondary); }
+.navbar-toggler { border-color: rgba(100, 255, 218, 0.5); }
+.navbar-toggler-icon { background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28100, 255, 218, 0.8%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e"); }
+
+/* --- Abas (Tabs) --- */
+.nav-tabs {
+    border-bottom: none; background-color: var(--primary-light); padding: 0.5rem;
+    border-radius: 12px; border: 1px solid var(--primary-border);
+    margin-bottom: 2rem !important; display: inline-flex; flex-wrap: wrap;
+}
+.nav-tabs .nav-link {
+    border: none; background-color: transparent; color: var(--text-light); margin: 0.25rem;
+    padding: 0.75rem 1.5rem; border-radius: 8px; transition: all 0.3s ease; font-weight: 500;
+}
+.nav-tabs .nav-link:hover, .nav-tabs .nav-link:focus { color: var(--secondary); background-color: rgba(100, 255, 218, 0.05); border-color: transparent; }
+.nav-tabs .nav-link.active { color: var(--secondary); background-color: var(--primary); border: 1px solid var(--secondary); box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); font-weight: 600; }
+.tab-content { padding-top: 1rem; }
+
+/* --- Cards --- */
+.card {
+    background-color: var(--primary-light); border: 1px solid var(--primary-border); border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2); transition: all 0.3s ease; overflow: hidden; color: var(--text);
+}
+.card:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.3), var(--glow-effect); border-color: var(--secondary); }
+.card-header { background-color: var(--primary); color: var(--secondary); border-bottom: 1px solid var(--primary-border); font-weight: 600; padding: 1rem 1.5rem; }
+.card-body { padding: 1.5rem; }
+.stat-card .card-title { color: var(--secondary); font-size: 1.1rem; margin-bottom: 1rem; }
+.stat-card .display-6 { color: var(--light); font-weight: 500; }
+.cleaning-option h4, .ml-model-card h4 { color: var(--secondary); font-size: 1.1rem; margin-bottom: 1rem; }
+
+/* --- Botões --- */
+.btn { padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 500; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid transparent; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; }
+.btn:focus, .btn:active { box-shadow: none !important; }
+.btn-primary, .btn-info, .btn-success { background-color: transparent; color: var(--secondary); border-color: var(--secondary); box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); }
+.btn-primary:hover, .btn-info:hover, .btn-success:hover { background-color: rgba(100, 255, 218, 0.1); color: var(--secondary); border-color: var(--secondary); transform: translateY(-2px); box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3), var(--glow-effect); }
+.btn-secondary, .btn-warning, .btn-danger { background-color: var(--primary-lighter); color: var(--text-light); border-color: var(--primary-border); }
+.btn-secondary:hover, .btn-warning:hover, .btn-danger:hover { background-color: var(--primary-border); color: var(--text); border-color: var(--text-light); transform: translateY(-2px); box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); }
+.btn-warning { color: var(--warning); border-color: var(--warning); }
+.btn-warning:hover { background-color: rgba(255, 171, 64, 0.1); border-color: var(--warning); color: var(--warning); }
+.btn-danger { color: var(--danger); border-color: var(--danger); }
+.btn-danger:hover { background-color: rgba(255, 82, 82, 0.1); border-color: var(--danger); color: var(--danger); }
+.btn-outline-info, .btn-outline-light, .btn-outline-secondary { color: var(--text-light); border-color: var(--primary-border); }
+.btn-outline-info:hover, .btn-outline-light:hover, .btn-outline-secondary:hover { color: var(--secondary); border-color: var(--secondary); background-color: rgba(100, 255, 218, 0.05); }
+.btn-outline-info.disabled, .btn-outline-info:disabled { color: var(--text-light); border-color: var(--primary-border); opacity: 0.5; }
+
+/* --- Acordeão --- */
+.accordion-item { background-color: var(--primary-light); border: 1px solid var(--primary-border); color: var(--text); }
+.accordion-button { background-color: var(--primary-light); color: var(--text); font-weight: 500; box-shadow: none !important; }
+.accordion-button:not(.collapsed) { color: var(--secondary); background-color: var(--primary); border-bottom: 1px solid var(--primary-border); }
+.accordion-button::after { background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ccd6f6'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e"); }
+.accordion-button:not(.collapsed)::after { background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%2364ffda'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e"); }
+.accordion-body { background-color: var(--primary-light); padding: 1.5rem; }
+
+/* --- Tabelas --- */
+.table { color: var(--text); border-color: var(--primary-border); }
+.table-dark { --bs-table-bg: var(--primary-light); --bs-table-striped-bg: var(--primary-lighter); --bs-table-hover-bg: var(--primary); color: var(--text); border-color: var(--primary-border); }
+.table td { border-color: var(--primary-border); }
+/* --- Tabela de Amostra de Dados (Melhoria de Contraste - Tentativa 3 - MUITO ESPECÍFICO) --- */
+
+/* Target a tabela específica dentro do card e dentro da aba Overview */
+#overview-tab-pane > .card > .table-responsive > .card-body > .table.table-dark tbody td,
+#overview-tab-pane > .card > .table-responsive > div > .table.table-dark tbody td, /* Se estiver dentro de uma div extra */
+#overview-tab-pane .table.table-dark tbody td { /* Fallback menos específico */
+    color: var(--text) !important; /* Usar --text (#ccd6f6) que é mais claro */
+    /* Se ainda estiver apagado, tente branco puro: */
+    /* color: var(--light) !important; */
+    vertical-align: middle;
+}
+
+/* Target o TH do índice no corpo da tabela (gerado pelo Pandas) */
+#overview-tab-pane > .card > .table-responsive > .card-body > .table.table-dark tbody th,
+#overview-tab-pane > .card > .table-responsive > div > .table.table-dark tbody th, /* Se estiver dentro de uma div extra */
+#overview-tab-pane .table.table-dark tbody th { /* Fallback menos específico */
+    color: var(--text) !important; /* Mesma cor clara para o índice */
+    /* Se ainda estiver apagado, tente branco puro: */
+    /* color: var(--light) !important; */
+    font-weight: 500;
+    vertical-align: middle;
+    background-color: inherit; /* Evitar herdar fundo do thead */
+}
+
+/* Target o TH do cabeçalho */
+#overview-tab-pane > .card > .table-responsive > .card-body > .table.table-dark thead th,
+#overview-tab-pane > .card > .table-responsive > div > .table.table-dark thead th, /* Se estiver dentro de uma div extra */
+#overview-tab-pane .table.table-dark thead th { /* Fallback menos específico */
+     color: var(--secondary) !important;
+     background-color: var(--primary) !important;
+     border-color: var(--primary-border) !important;
+     vertical-align: middle;
+     border-bottom-width: 2px;
+}
+
+/* Target o Hover da linha (tr) no corpo */
+#overview-tab-pane > .card > .table-responsive > .card-body > .table.table-hover > tbody > tr:hover > *,
+#overview-tab-pane > .card > .table-responsive > div > .table.table-hover > tbody > tr:hover > *, /* Se estiver dentro de uma div extra */
+#overview-tab-pane .table.table-hover > tbody > tr:hover > * { /* Fallback menos específico */
+    color: var(--secondary) !important;
+    background-color: var(--primary) !important;
+}
+/* Tabela de comparação ML */
+#model-results-container .table th, #model-results-container .table td { vertical-align: middle; }
+#model-results-container .btn-xs { padding: 0.1rem 0.4rem; font-size: 0.8rem; }
+
+/* --- Formulários --- */
+.form-label { color: var(--text-lighter); font-weight: 500; margin-bottom: 0.5rem; }
+.form-select, .form-control { background-color: var(--primary); color: var(--text); border: 1px solid var(--primary-border); border-radius: 8px; padding: 0.75rem; transition: border-color 0.3s ease, box-shadow 0.3s ease; }
+.form-select:hover, .form-control:hover { border-color: var(--text-light); }
+.form-select:focus, .form-control:focus { border-color: var(--secondary); box-shadow: 0 0 0 3px rgba(100, 255, 218, 0.2); background-color: var(--primary); color: var(--text); outline: none; }
+.form-select { appearance: none; background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ccd6f6'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e"); background-repeat: no-repeat; background-position: right 0.75rem center; background-size: 16px 12px; }
+.form-check-input { background-color: var(--primary); border-color: var(--primary-border); }
+.form-check-input:checked { background-color: var(--secondary); border-color: var(--secondary); }
+.form-check-input:focus { box-shadow: 0 0 0 3px rgba(100, 255, 218, 0.2); }
+.form-check-label { color: var(--text); font-size: 0.95rem; }
+#model-selection-list-multiple label, #outlier-column-selection label { transition: color 0.2s ease; padding: 0.3rem 0.5rem; border-radius: 4px; cursor: pointer; }
+#model-selection-list-multiple label:hover, #outlier-column-selection label:hover { color: var(--secondary); background-color: rgba(100, 255, 218, 0.05); }
+
+/* --- Alertas --- */
+.alert { border-radius: 8px; border-width: 1px; border-style: solid; padding: 1rem 1.5rem; }
+.alert-success { color: #e0fdf4; background-color: rgba(0, 230, 118, 0.1); border-color: rgba(0, 230, 118, 0.3); }
+.alert-warning { color: #fff8e1; background-color: rgba(255, 171, 64, 0.1); border-color: rgba(255, 171, 64, 0.3); }
+.alert-danger { color: #ffebee; background-color: rgba(255, 82, 82, 0.1); border-color: rgba(255, 82, 82, 0.3); }
+.alert-info { color: #e1f5fe; background-color: rgba(100, 255, 218, 0.1); border-color: rgba(100, 255, 218, 0.3); }
+.alert .btn-close { filter: invert(80%) sepia(10%) saturate(500%) hue-rotate(170deg) brightness(100%) contrast(90%); }
+
+/* --- Imagens de Gráfico --- */
+#correlation-chart-container img, #scatter-chart-container img, .univariate-plot-container img {
+    background-color: var(--primary-light); border: 1px solid var(--primary-border);
+    border-radius: 8px; padding: 0.5rem; max-width: 100%; height: auto;
+}
+
+/* --- Footer Genérico (analysis_page) --- */
+footer { background-color: var(--primary-light); border-top: 1px solid var(--primary-border); padding: 1rem 1rem; margin-top: 3rem; color: var(--text-light); font-size: 0.9rem; }
+footer a { color: var(--secondary); }
+footer a:hover { color: var(--secondary-dark); }
+
+/* --- Estilos para o Footer de Portfólio (home.html) --- */
+#portfolio-footer { background-color: var(--primary-light); border-top: 2px solid var(--secondary); color: var(--text); }
+#portfolio-footer h2::after { content: ''; display: block; width: 60px; height: 3px; background-color: var(--secondary); margin: 0.5rem auto 0; border-radius: 2px; }
+.profile-pic { max-width: 180px; border-radius: 50%; border: 4px solid var(--primary-border); box-shadow: 0 5px 20px rgba(0,0,0,0.4), 0 0 15px rgba(100, 255, 218, 0.2); }
+.bio-info h3 { font-weight: 700; letter-spacing: 0.5px; }
+.bio-info .lead { font-size: 1.1rem; }
+.bio-info .text-muted { font-size: 0.95rem; }
+.skills-section h5, .bio-contact h5 { font-size: 1.05rem; margin-bottom: 0.75rem; color: var(--secondary); }
+.skills-section h5 i, .bio-contact h5 i { font-size: 1em; }
+.skill-badge { background-color: var(--primary); color: var(--secondary); border: 1px solid var(--primary-border); padding: 0.3em 0.6em; font-size: 0.85rem; font-weight: 500; border-radius: 15px; transition: all 0.3s ease; }
+.skill-badge:hover { background-color: var(--secondary); color: var(--primary); border-color: var(--secondary); transform: scale(1.05); }
+.skills-list .list-inline-item { margin-bottom: 0.4rem; margin-right: 0.4rem; }
+.bio-contact .social-link { color: var(--secondary); font-weight: 500; display: inline-block; border-bottom: 1px dashed transparent; padding: 0.1rem 0; transition: all 0.3s ease; }
+.bio-contact .social-link:hover { color: var(--secondary-dark); border-bottom-color: var(--secondary-dark); }
+.bio-contact p { color: var(--text-light); margin-bottom: 0.4rem; }
+.bio-contact p i { color: var(--secondary); width: 18px; text-align: center; margin-right: 0.3rem; }
+.bio-contact p a { color: var(--text-light); }
+.bio-contact p a:hover { color: var(--secondary); }
+
+/* --- Header Logo Animado --- */
+.logo-animation { position: relative; display: flex; flex-direction: column; align-items: center; }
+.logo-text-wrapper { position: relative; overflow: hidden; border-radius: 10px; padding: 10px 20px; display: inline-block; background-color: rgba(17, 34, 64, 0.5); border: 1px solid var(--primary-border); }
+.logo-text { font-size: 4rem; font-weight: 700; letter-spacing: -0.025em; background: linear-gradient(120deg, var(--secondary), var(--light)); -webkit-background-clip: text; background-clip: text; color: transparent; position: relative; z-index: 2; text-shadow: 0 0 15px rgba(100, 255, 218, 0.4); animation: textPulse 3s ease-in-out infinite; }
+.logo-text i { font-size: 3.5rem; vertical-align: middle; margin-right: 0.5rem !important; background: linear-gradient(120deg, var(--secondary), var(--light)); -webkit-background-clip: text; background-clip: text; color: transparent; color: var(--secondary); } /* Fallback */
+@keyframes textPulse { 0% { opacity: 1; text-shadow: 0 0 15px rgba(100, 255, 218, 0.2); } 50% { opacity: 0.85; text-shadow: 0 0 25px rgba(100, 255, 218, 0.5); } 100% { opacity: 1; text-shadow: 0 0 15px rgba(100, 255, 218, 0.2); } }
+.binary-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: repeating-linear-gradient(90deg, transparent, transparent 10px, rgba(100, 255, 218, 0.03) 10px, rgba(100, 255, 218, 0.03) 20px), repeating-linear-gradient(0deg, transparent, transparent 10px, rgba(100, 255, 218, 0.03) 10px, rgba(100, 255, 218, 0.03) 20px); opacity: 0.3; z-index: 1; animation: overlayFlow 20s linear infinite; border-radius: inherit; }
+@keyframes overlayFlow { 0% { background-position: 0 0; } 100% { background-position: 100px 100px; } }
+.logo-numbers { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: hidden; z-index: 3; }
+.number-particle { position: absolute; color: rgba(100, 255, 218, 0.7); font-family: monospace; font-size: 0.9rem; font-weight: bold; opacity: 0; animation: numberFloat 6s linear infinite; }
+@keyframes numberFloat { 0% { transform: translate(0, 10px) scale(0.8); opacity: 0; } 20% { opacity: 0.7; } 80% { opacity: 0.5; } 100% { transform: translate(20px, -30px) scale(1.1); opacity: 0; } }
+.number-particle:nth-child(1) { top: 10%; left: 15%; animation-delay: 0s; } .number-particle:nth-child(2) { top: 75%; left: 25%; animation-delay: 0.6s; } .number-particle:nth-child(3) { top: 20%; left: 40%; animation-delay: 1.2s; } .number-particle:nth-child(4) { top: 60%; left: 55%; animation-delay: 1.8s; } .number-particle:nth-child(5) { top: 30%; left: 70%; animation-delay: 2.4s; } .number-particle:nth-child(6) { top: 85%; left: 80%; animation-delay: 3.0s; } .number-particle:nth-child(7) { top: 5%; left: 90%; animation-delay: 3.6s; } .number-particle:nth-child(8) { top: 90%; left: 5%; animation-delay: 4.2s; } .number-particle:nth-child(9) { top: 50%; left: 50%; animation-delay: 4.8s; } .number-particle:nth-child(10) { top: 25%; left: 80%; animation-delay: 5.4s; }
+
+/* --- Upload Area Animada --- */
+.data-visualization { min-height: 200px; position: relative; overflow: hidden; border-radius: 12px; background-color: var(--primary-light); border: 2px dashed var(--primary-border); display: flex; align-items: center; justify-content: center; box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.4); transition: background-color 0.3s ease, border-color 0.3s ease; color: var(--text-light); font-size: 1.1rem; cursor: pointer; }
+.data-visualization.drag-over { background-color: rgba(100, 255, 218, 0.05); border-color: var(--secondary); border-style: solid; color: var(--secondary); }
+.data-visualization.drag-over i { color: var(--secondary); }
+.grid-background { position: absolute; width: 100%; height: 100%; top: 0; left: 0; background-image: linear-gradient(to right, rgba(35, 53, 84, 0.5) 1px, transparent 1px), linear-gradient(to bottom, rgba(35, 53, 84, 0.5) 1px, transparent 1px); background-size: 25px 25px; z-index: 0; opacity: 0.5; }
+.data-flow { position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 1; pointer-events: none; }
+.data-node { position: absolute; width: 6px; height: 6px; border-radius: 50%; animation: dataFlow 6s infinite linear alternate; opacity: 0; }
+@keyframes dataFlow { 0% { transform: translate(5%, 10%) scale(0.6); background-color: var(--secondary-collision); box-shadow: 0 0 8px var(--secondary-collision); opacity: 0; } 10% { background-color: var(--secondary); box-shadow: 0 0 6px rgba(100, 255, 218, 0.5); opacity: 0.8; transform: translate(15%, 20%) scale(0.8); } 50% { background-color: var(--secondary); box-shadow: 0 0 6px rgba(100, 255, 218, 0.5); opacity: 0.9; transform: translate(50%, 50%) scale(1); } 90% { background-color: var(--secondary); box-shadow: 0 0 6px rgba(100, 255, 218, 0.5); opacity: 0.8; transform: translate(85%, 80%) scale(0.8); } 100% { transform: translate(95%, 90%) scale(0.6); background-color: var(--secondary-collision); box-shadow: 0 0 8px var(--secondary-collision); opacity: 0; } }
+.file-upload { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+
+/* --- Melhorias Visuais Gerais --- */
+hr { border-color: var(--primary-border); opacity: 0.5; }
+.text-muted { color: var(--text-light) !important; }
+.small { font-size: 0.9em; }
+::placeholder { color: var(--text-light); opacity: 0.7; }
+:-ms-input-placeholder { color: var(--text-light); }
+::-ms-input-placeholder { color: var(--text-light); }
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--primary); }
+::-webkit-scrollbar-thumb { background-color: var(--primary-border); border-radius: 10px; border: 2px solid var(--primary); }
+::-webkit-scrollbar-thumb:hover { background-color: var(--text-light); }
